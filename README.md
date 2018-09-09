@@ -33,8 +33,6 @@ public class AddressController {
 }
 ```
 
-<img src="screenshot-rest-api.png"/>
-
 > Spring HATEOAS - para facilitar a criação de representações REST que seguem o princípio HATEOAS 
 
 ```
@@ -42,6 +40,8 @@ Address address = new Address();
 address.add(linkTo(methodOn(AddressController.class).getById(address.getAddressID())).withSelfRel());
 address.add(linkTo(methodOn(AddressController.class).delete(address.getAddressID())).withSelfRel());
 ```
+
+<img src="screenshot-rest-api.png"/>
 
 > Bean Validation JSR-303 implementation - usado para a validação dos campos 
 
