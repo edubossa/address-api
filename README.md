@@ -83,7 +83,7 @@ Frontend
 
 > Bootstrap - para facilitar a responsibilidade da parte web.
 
-> Font Awesome - usado para adicionar icones na aplicação, visando um melhor desempenho pois em nenhum momento foi algum tipo de imagem jpeg ou png na aplicação.
+> Font Awesome - usado para adicionar icones na aplicação, visando um melhor desempenho pois em nenhum momento foi usado algum tipo de imagem jpeg ou png na aplicação.
  
 
 
