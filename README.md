@@ -33,6 +33,8 @@ public class AddressController {
 }
 ```
 
+<img src="screenshot-rest-api.png"/>
+
 > Spring HATEOAS - para facilitar a criação de representações REST que seguem o princípio HATEOAS 
 
 ```
@@ -113,9 +115,6 @@ Access [http://localhost:8080/](http://localhost:8080/)
 
 Result
 --------------
-
-<img src="screenshot-rest-api.png"/>
-
 
 <img src="screenshot-web-console.png"/>
 
