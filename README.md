@@ -7,7 +7,7 @@ Arquitetura
 
 A aplicação foi dividida em Backend e Frontend visando desacoplar a API do console web.
 
-Backend compõe as seguintes tecnologias.
+Backend
 --
 
 > Spring Boot - para o gerenciamento das injeções de dependencias.
