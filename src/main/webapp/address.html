@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/address.css"/>
+    <title>Title</title>
+</head>
+<body ng-controller="AddressCtrl" >
+
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand"></a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+
+<div class="container mt-3">
+
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">CEP</th>
+                <th scope="col">Rua</th>
+                <th scope="col">Numero</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="address in addresses">
+                    <th scope="row">{{address.addressID}}</th>
+                    <td>{{address.zipCode}}</td>
+                    <td>{{address.street}}</td>
+                    <td>{{address.number}}</td>
+                    <td>
+                        <a ng-click="detailsAddressModal(address.addressID)"> <i class="fas fa-info-circle mr-3 text-secondary"></i> </a>
+                        <a ng-click="preUpdateAddressModal(address.addressID)"> <i class="fas fa-edit mr-3 text-primary"></i> </a>
+                        <a ng-click="deleteAddress(address.addressID)"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <button class="float" ng-click="preNewAddressModal()" data-toggle="modal"> <i class="fas fa-address-book"></i> </button>
+    </div>
+
+
+    <!-- Add Address Modal -->
+    <div class="modal fade" id="addAddressModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Dados do Endereço</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" ng-if="errorMessage != ''">
+                        <h6 class="text-danger ml-3">{{errorMessage}}</h6>
+                    </div>
+                    <form name="myForm" novalidate>
+                        <div class="form-group">
+                            <label for="rua" class="col-form-label">Endereço:</label>
+                            <input type="text" ng-model="addressForm.street" class="form-control" id="rua" required >
+                        </div>
+                        <div class="form-row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="numero" class="col-form-label">Numero:</label>
+                                    <input type="number" ng-model="addressForm.number" class="form-control" id="numero">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="cep" class="col-form-label">CEP:</label>
+                                    <input type="text" ng-model="addressForm.zipCode" class="form-control" id="cep" maxlength="9" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label for="cidade" class="col-form-label">Cidade:</label>
+                                    <input type="text" ng-model="addressForm.city" class="form-control" id="cidade">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="estado" class="col-form-label">Estado:</label>
+                                    <select id="estado" ng-model="addressForm.state" class="custom-select">
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="MA">MA</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RS">RS</option>
+                                        <option value="SP" selected>SP</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="bairro" class="col-form-label">Bairro:</label>
+                                    <input type="text" ng-model="addressForm.district" class="form-control" id="bairro">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="complemento" class="col-form-label">Complemento:</label>
+                                    <input type="text" ng-model="addressForm.complement" class="form-control" id="complemento">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button ng-click="addOrUpdateAddress()" type="submit" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Detail Model-->
+    <div class="modal fade" id="detailAddressModel" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Dados do Endereço</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label class="col-form-label">ID: </label>
+                            <span class="font-weight-bold text-secondary">{{addressForm.addressID}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Endereço: </label>
+                            <span class="font-weight-bold text-secondary">{{addressForm.street}}</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label class="col-form-label">Numero: </label>
+                                    <span class="font-weight-bold text-secondary">{{addressForm.number}}</span>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label class="col-form-label">CEP: </label>
+                                    <span class="font-weight-bold text-secondary">{{addressForm.zipCode}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label class="col-form-label">Cidade: </label>
+                                    <span class="font-weight-bold text-secondary">{{addressForm.city}}</span>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="estado" class="col-form-label">Estado: </label>
+                                    <span class="font-weight-bold text-secondary">{{addressForm.state}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="bairro" class="col-form-label">Bairro:</label>
+                                    <span class="font-weight-bold text-secondary">{{addressForm.district}}</span>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="complemento" class="col-form-label">Complemento:</label>
+                                    <span class="font-weight-bold text-secondary"> {{addressForm.complement}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="js/address_ctrl.js"></script>
+    <script src="js/address_service.js"></script>
+
+</body>
+</html>
