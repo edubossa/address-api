@@ -14,19 +14,14 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- *  Verificar testes
- *  https://github.com/eugenp/tutorials/tree/master/spring-data-rest
- */
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/addresses")
 public class AddressController {
 
-
     @Autowired
     private AddressService addressService;
-
 
     @GetMapping
     public ResponseEntity<List<Address>> getAll() {
