@@ -51,17 +51,15 @@ public class AddressController {
 
 
     @ExceptionHandler(AddressNotFoundException.class)
-    public final ResponseEntity<Object> handleAddressNotFoundException(AddressNotFoundException ex) {
+    public final ResponseEntity<ErrorDetails> handleAddressNotFoundException(AddressNotFoundException ex) {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage());
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(AddressBadRequest.class)
-    public final ResponseEntity<Object> handleAddressBadRequest(AddressBadRequest ex) {
+    public final ResponseEntity<ErrorDetails> handleAddressBadRequest(AddressBadRequest ex) {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage());
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
     }
-
-
 
 }
